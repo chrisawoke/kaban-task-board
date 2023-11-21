@@ -4,7 +4,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        roboto: ['Roboto']
+        roboto: ['Roboto'],
+        montserrat: ['Montserrat']
       },
       colors: {
         navyBlue: "#001F3F",

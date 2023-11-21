@@ -7,9 +7,9 @@ const Columns = () => {
 
     const column = [
         {id: 1,  style: "bg-navyBlue", icon: <MdRequestPage size={28} />,  title: 'Requested Tasks'},
-        {id: 2,  style: "bg-steelGray", icon: <FaList size={20} />,  title: 'To-Dos'},
-        {id: 3,  style: "bg-burgundy", icon: <GrInProgress size={20} />, title: 'In Progress'},
-        {id: 4,  style: "bg-forestGreen", icon: <MdOutlineDone className="text-forestGreen" size={28} />, title: 'Done'},
+        {id: 2,  style: "bg-steelGray", icon: <FaList className="mr-4" size={20} />,  title: 'To-Dos'},
+        {id: 3,  style: "bg-burgundy", icon: <GrInProgress className="mr-4" size={20} />, title: 'In Progress'},
+        {id: 4,  style: "bg-forestGreen", icon: <MdOutlineDone className="text-forestGreen mr-4" size={28} />, title: 'Done'},
     ]
 
   return (

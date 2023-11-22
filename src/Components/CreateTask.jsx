@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import toast from 'react-hot-toast'
+import { GiCancel } from "react-icons/gi";
 
 
-const CreateTask = ({ tasks, setTasks }) => {
+const CreateTask = ({ tasks, setTasks, setShowTask }) => {
 
     const [task, setTask] = useState({
         id: "",
@@ -42,34 +43,52 @@ const CreateTask = ({ tasks, setTasks }) => {
     }
 
     return (
-        <form onSubmit={handleSubmit} className='flex items-center justify-center mt-5'>
-            <input
-                type='text'
-                className='border-2 border-slate-400 bg-slate-100 rounded-md mr-4 h-12 w-64 px-1 outline-none'
-                placeholder='Task Name'
-                value={task.name}
-                onChange={(e) =>
-                    setTask({ ...task, id: uuidv4(), name: e.target.value })}
-            />
-            <textarea
-                className='border-2 border-slate-400 bg-slate-100 rounded-md mr-4 h-12 w-64 px-1 py-[10px] outline-none'
-                placeholder='Description'
-                value={task.description}
-                onChange={(e) =>
-                    setTask({ ...task, id: uuidv4(), description: e.target.value })}
-            ></textarea>
-            <input
-                type='text'
-                className='border-2 border-slate-400 bg-slate-100 rounded-md mr-4 h-12 w-64 px-1 outline-none'
-                placeholder='Assignees Name'
-                value={task.assignee}
-                onChange={(e) =>
-                    setTask({ ...task, id: uuidv4(), assignee: e.target.value })}
-            />
-            <button className='bg-cyan-500 rounded-md px-4 h-12 text-white'>
-                Create
-            </button>
-        </form>
+        <div className='flex justify-center'>
+            <form onSubmit={handleSubmit} className='bg-navyBlue absolute top-[16%] min-h-[500px] w-[30%] px-10'>
+                <span 
+                    className='mt-3 flex justify-end text-[#aaaaaa] mr-[-1.5rem] cursor-pointer'
+                    onClick={(e) => setShowTask(false)}
+                >
+                    <GiCancel size={24} />
+                </span>
+                <h1 className='text-center text-[30px] pt-[0.5rem] text-white'>Create A New Task</h1>
+                <div className='mt-[2.5rem]'>
+                    <input
+                        type='text'
+                        className='border-2 bg-[#EAEAEA] rounded-md h-12 w-[100%] px-1 outline-none'
+                        placeholder='Task Name'
+                        value={task.name}
+                        onChange={(e) =>
+                            setTask({ ...task, id: uuidv4(), name: e.target.value })}
+                    />
+                    <br />
+                    <input
+                        type='text'
+                        className='border-2 bg-[#EAEAEA] rounded-md h-12 w-[100%] px-1 outline-none mt-8'
+                        placeholder='Assignees Name'
+                        value={task.assignee}
+                        onChange={(e) =>
+                            setTask({ ...task, id: uuidv4(), assignee: e.target.value })}
+                    />
+                    <br />
+                    <textarea
+                        cols='50'
+                        rows='4'
+                        className='border-2 bg-[#EAEAEA] rounded-md w-[100%] px-1 outline-none mt-8'
+                        placeholder='Description'
+                        value={task.description}
+                        onChange={(e) =>
+                            setTask({ ...task, id: uuidv4(), description: e.target.value })}
+                    >
+                    </textarea>
+                    <br />
+                    <button className='bg-[#CCCCCC] rounded-md px-[50px] w-[100%] font-semibold text-center h-12 text-GREY-600 mt-[1rem]'
+                    >
+                        Create Task
+                    </button>
+                </div>
+            </form>
+        </div>
     );
 }
 

@@ -1,15 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { v4 as uuidv4 } from 'uuid';
-import toast from 'react-hot-toast';
-import { GiCancel } from 'react-icons/gi';
+import { useState, useEffect } from 'react'
+import { v4 as uuidv4 } from 'uuid'
+import toast from 'react-hot-toast'
+import { GiCancel } from "react-icons/gi";
 
-const CreateTask = ({ tasks, setTasks, setShowTask }) => {
+
+const CreateTask = ({ setShowTask }) => {
+    const [tasks, setTasks] = useState([]);
+
 	const [task, setTask] = useState({
 		id: '',
 		name: '',
 		description: '',
 		assignee: '',
-		status: 'requested task',
+		status: 'requested',
 	});
 
 	console.log(task);
@@ -46,12 +49,12 @@ const CreateTask = ({ tasks, setTasks, setShowTask }) => {
 			name: '',
 			description: '',
 			assignee: '',
-			status: 'requested task',
+			status: 'requested',
 		});
 	};
 
 	return (
-		<div className='flex justify-start lg:ms-[3rem] xs:ms-[2rem]'>
+		<div className='fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex justify-center items-center'>
 			<form
 				onSubmit={handleSubmit}
 				className='bg-navyBlue absolute lg:top-[24%] xs:top-[24%] xml:top-[17%] md:top-[15%] min-h-[400px] border-[1px] border-[#0c0c27] rounded-[12px] lg:w-[20%] xs:w-[75%] md:w-[40%] px-5'

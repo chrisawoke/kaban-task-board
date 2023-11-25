@@ -43,16 +43,16 @@ const CreateTask = ({ tasks, setTasks, setShowTask }) => {
     }
 
     return (
-        <div className='flex justify-center'>
-            <form onSubmit={handleSubmit} className='bg-navyBlue absolute top-[16%] min-h-[500px] w-[30%] px-10'>
-                <span 
-                    className='mt-3 flex justify-end text-[#aaaaaa] mr-[-1.5rem] cursor-pointer'
+        <div className='flex justify-start lg:ms-[3rem] xs:ms-[2rem]'>
+            <form onSubmit={handleSubmit} className='bg-navyBlue absolute lg:top-[24%] xs:top-[24%] xml:top-[17%] md:top-[15%] min-h-[400px] border-[1px] border-[#0c0c27] rounded-[12px] lg:w-[20%] xs:w-[75%] md:w-[40%] px-5'>
+                <span
+                    className='mt-3 flex justify-end text-[#fff] cursor-pointer mr-[-0.5rem]'
                     onClick={(e) => setShowTask(false)}
                 >
-                    <GiCancel size={24} />
+                    <GiCancel size={20} />
                 </span>
-                <h1 className='text-center text-[30px] pt-[0.5rem] text-white'>Create A New Task</h1>
-                <div className='mt-[2.5rem]'>
+                <h1 className='text-center text-[20px] text-white'>Create A New Task</h1>
+                <div className='mt-[1rem]'>
                     <input
                         type='text'
                         className='border-2 bg-[#EAEAEA] rounded-md h-12 w-[100%] px-1 outline-none'
@@ -64,7 +64,7 @@ const CreateTask = ({ tasks, setTasks, setShowTask }) => {
                     <br />
                     <input
                         type='text'
-                        className='border-2 bg-[#EAEAEA] rounded-md h-12 w-[100%] px-1 outline-none mt-8'
+                        className='border-2 bg-[#EAEAEA] rounded-md h-12 w-[100%] px-1 outline-none mt-5'
                         placeholder='Assignees Name'
                         value={task.assignee}
                         onChange={(e) =>
@@ -72,9 +72,9 @@ const CreateTask = ({ tasks, setTasks, setShowTask }) => {
                     />
                     <br />
                     <textarea
-                        cols='50'
+                        cols='22'
                         rows='4'
-                        className='border-2 bg-[#EAEAEA] rounded-md w-[100%] px-1 outline-none mt-8'
+                        className='border-2 bg-[#EAEAEA] rounded-md w-[100%] px-1 outline-none mt-5'
                         placeholder='Description'
                         value={task.description}
                         onChange={(e) =>
@@ -82,7 +82,7 @@ const CreateTask = ({ tasks, setTasks, setShowTask }) => {
                     >
                     </textarea>
                     <br />
-                    <button className='bg-[#CCCCCC] rounded-md px-[50px] w-[100%] font-semibold text-center h-12 text-GREY-600 mt-[1rem]'
+                    <button className='bg-[#CCCCCC] hover:bg-[#929292] hover:text-[#fff] rounded-md px-[30px] w-[100%] font-semibold text-center h-12 text-GREY-600 mt-[1rem]'
                     >
                         Create Task
                     </button>

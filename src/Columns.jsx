@@ -27,9 +27,9 @@ const Columns = () => {
                         <span className="mr-4">{icon}</span>
                         <p className="text-gray-600 text-center font-medium text-lg">{title}</p>
                     </div>
-                    <div className="ms-2 flex justify-start relative top-[78%] bottom-0 items-center cursor-pointer" onClick={(e) => setShowTask(true)}>
-                        <span className="mr-2 text-gray-300">{addicon}</span>
-                        <p className="text-gray-300 font-medium text-lg">{button}</p>
+                    <div className="ms-2 flex text-gray-300 hover:text-gray-500 justify-start relative top-[78%] bottom-0 items-center cursor-pointer" onClick={(e) => setShowTask(true)}>
+                        <span className="mr-2">{addicon}</span>
+                        <p className="font-medium text-lg">{button}</p>
                     </div>
                 </div>
             ))}

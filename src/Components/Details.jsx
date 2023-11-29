@@ -25,19 +25,21 @@ const Details = ({ task, onClose, onEdit, onDelete }) => {
   };
 
   // Effect to attach and detach click event listener for modal closing
-  useEffect(() => {
-    document.addEventListener("click", handleCloseModal);
+  //! bug: Comented our because it makes the modal close instantly
 
-    return () => {
-      document.removeEventListener("click", handleCloseModal);
-    };
-  }, []);
+  // useEffect(() => {
+  //   document.addEventListener("click", handleCloseModal);
+
+  //   return () => {
+  //     document.removeEventListener("click", handleCloseModal);
+  //   };
+  // }, []);
 
   // Function to adjust textarea height dynamically based on content
   const autoAdjustTextareaHeight = (element) => {
     if (element) {
-      element.style.height = 'auto';
-      element.style.height = (element.scrollHeight) + 'px';
+      element.style.height = "auto";
+      element.style.height = element.scrollHeight + "px";
     }
   };
 
@@ -45,13 +47,13 @@ const Details = ({ task, onClose, onEdit, onDelete }) => {
   const handleEditClick = () => {
     setEditMode(!editMode);
     if (editMode) {
-      onEdit(editedTask);
+      onEdit(task, editedTask);
     }
   };
 
   // Function to handle clicks on "Delete" button and trigger delete operation
   const handleDeleteClick = () => {
-    onDelete(task.id);
+    onDelete(task.id, task.status);
     onClose();
   };
 
@@ -62,6 +64,8 @@ const Details = ({ task, onClose, onEdit, onDelete }) => {
       [field]: e.target.value,
     });
   };
+
+  useEffect(()=>{console.log("task", task); console.log("edited", editedTask)},[editedTask])
 
   return (
     <div className="fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex justify-center items-center">
@@ -87,7 +91,6 @@ const Details = ({ task, onClose, onEdit, onDelete }) => {
           }
         )}
       >
-
         <button
           onClick={onClose}
           className="absolute top-0 right-3 m-4 text-white cursor-pointer"
@@ -130,9 +133,11 @@ const Details = ({ task, onClose, onEdit, onDelete }) => {
                 value={editedTask.description}
                 onChange={(e) => handleInputChange(e, "description")}
                 className="border-none outline-none p-2 w-full resize-none rounded "
-                style={{ height: 'auto', minHeight: '80px' }}
+                style={{ height: "auto", minHeight: "80px" }}
                 rows={1}
-                ref={(textarea) => textarea && autoAdjustTextareaHeight(textarea)}
+                ref={(textarea) =>
+                  textarea && autoAdjustTextareaHeight(textarea)
+                }
               />
             </div>
             <div className="mb-4">
@@ -150,8 +155,7 @@ const Details = ({ task, onClose, onEdit, onDelete }) => {
         )}
 
         <div className="flex mt-4 justify-end item-center">
-          {editedTask.status === "requested" ||
-          editedTask.status === "todo" ? (
+          {editedTask.status === "requested" || editedTask.status === "todo" ? (
             // Show "Edit" button for tasks in requested or todo status
             <button
               onClick={handleEditClick}

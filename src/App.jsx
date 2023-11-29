@@ -9,7 +9,7 @@ export default function App() {
   return (
     <>
     <Toaster />
-    <div className="font-roboto bg-gradient-to-b from-white via-gray-500 to-cyan-900">
+    <div className="font-roboto bg-gradient-to-b from-white via-gray-500 to-cyan-900 grid grid-rows-[auto_1fr_auto] min-h-screen">
     {showTask && <CreateTask setShowTask={setShowTask}/>}
       <Columns setShowTask={setShowTask}/>
     </div>

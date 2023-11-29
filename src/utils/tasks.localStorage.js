@@ -31,7 +31,7 @@ export const deleteTask = (taskID, taskStatus) => {
   const tasks = getTasks();
   const updatedColumn = tasks[taskStatus].filter((task) => task.id !== taskID);
   const updatedTasks = { ...tasks, [taskStatus]: updatedColumn };
-  
+
   localStorage.setItem("tasks", JSON.stringify(updatedTasks));
 
   window.location.reload();
@@ -53,23 +53,19 @@ export const editTask = (taskToEdit, updatedTask) => {
 
 //Given a task and a column to move that task to this function will do just that
 export const moveTaskToColumn = (taskToMove, toColumn) => {
-  const validColumns = ["requested", "todo", "inProgress", "done"];
-
-  if (!validColumns.includes(toColumn)) {
-    return; // Exit early if toColumn is not valid
-  }
-
-  const tasks = getTasks();
-
-  //We delete the task from the current column
+  // Delete the task from the current column
   deleteTask(taskToMove.id, taskToMove.status);
 
-  //We change the status of the task we plan to move before moving it to the new column
-  editTask(taskToMove, { ...taskToMove, status: toColumn });
+  // Change the status of the task before moving it to the new column
+  const updatedTask = { ...taskToMove, status: toColumn };
+  editTask(taskToMove, updatedTask);
+  const tasks = getTasks();
 
-  //We add the task at the begining of the specified column
-  const updatedTasks = tasks[toColumn].unshift(taskToMove);
-  localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+  // Update the tasks object by adding the task to the new column
+  tasks[toColumn].unshift(updatedTask);
+
+  // Update localStorage with the modified tasks object
+  localStorage.setItem("tasks", JSON.stringify(tasks));
 };
 
 //Given a task this function returns the index of said task inside it's column

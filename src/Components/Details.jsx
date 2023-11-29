@@ -2,12 +2,22 @@ import { useState, useEffect, useRef } from "react";
 import { IoTrashBinSharp } from "react-icons/io5";
 import { GiCancel } from "react-icons/gi";
 import classnames from "classnames";
+import { moveTaskToColumn } from "../utils/tasks.localStorage";
 
 // Details component that displays task details and provides edit/delete functionality
 const Details = ({ task, onClose, onEdit, onDelete }) => {
   // State to manage edited task data and edit mode
   const [editedTask, setEditedTask] = useState(task);
   const [editMode, setEditMode] = useState(false);
+
+  //Where to store the columns currently on the tasks item in localStorage, since the kanban board will not have any more
+  //columns I chose to hardcode it instead of fetching them in a useEffect each time the page loads
+  const columns = {
+    Requested: "requested",
+    "To-Dos": "todo",
+    "In Progress": "inProgress",
+    Done: "done",
+  };
 
   // Refs to handle modal and form interactions
   const modalRef = useRef(null);
@@ -65,7 +75,11 @@ const Details = ({ task, onClose, onEdit, onDelete }) => {
     });
   };
 
-  useEffect(()=>{console.log("task", task); console.log("edited", editedTask)},[editedTask])
+  //Change the task to the specified column
+  const handleColumnChange = (columnKey) => {
+    const columnValue = columns[columnKey];
+    moveTaskToColumn(task, columnValue);
+  };
 
   return (
     <div className="fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex justify-center items-center">
@@ -153,24 +167,42 @@ const Details = ({ task, onClose, onEdit, onDelete }) => {
             </div>
           </>
         )}
-
-        <div className="flex mt-4 justify-end item-center">
-          {editedTask.status === "requested" || editedTask.status === "todo" ? (
-            // Show "Edit" button for tasks in requested or todo status
-            <button
-              onClick={handleEditClick}
-              className="mr-2 text-white px-4 py-2 rounded-md font-semibold"
+        <div className="flex justify-between items-center">
+          <div>
+            {/* Here we map through the keys of the columns object to show the formatted way of the names
+            which are different from the real values of the columns in the localStorage */}
+            <select
+              name="select-column"
+              onChange={(e) => {
+                handleColumnChange(e.target.value);
+              }}
             >
-              {editMode ? "Save" : "Edit"}
-            </button>
-          ) : null}
+              {Object.keys(columns).map((column) => (
+                <option key={column} value={column}>
+                  {column}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="flex mt-4 justify-end item-center">
+            {editedTask.status === "requested" ||
+            editedTask.status === "todo" ? (
+              // Show "Edit" button for tasks in requested or todo status
+              <button
+                onClick={handleEditClick}
+                className="mr-2 text-white px-4 py-2 rounded-md font-semibold"
+              >
+                {editMode ? "Save" : "Edit"}
+              </button>
+            ) : null}
 
-          <button
-            onClick={handleDeleteClick}
-            className="mr-2 text-white px-0 py-2 rounded-md"
-          >
-            <IoTrashBinSharp size={20} />
-          </button>
+            <button
+              onClick={handleDeleteClick}
+              className="mr-2 text-white px-0 py-2 rounded-md"
+            >
+              <IoTrashBinSharp size={20} />
+            </button>
+          </div>
         </div>
       </div>
     </div>
